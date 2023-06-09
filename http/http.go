@@ -93,7 +93,7 @@ func (h *HTTPRetry) Do(req *http.Request) (*http.Response, error) {
 	}
 
 	for currentTries := 0; currentTries < h.Retries; currentTries++ {
-		log.Debug().Fields(map[string]interface{}{"Current tries": currentTries}).Msg("Http request")
+		log.Trace().Fields(map[string]interface{}{"Current tries": currentTries, "URL": req.URL.String()}).Msg("Http request")
 
 		resp, err := h.HTTPClient.Do(req)
 		if err != nil || resp.StatusCode >= 500 {
